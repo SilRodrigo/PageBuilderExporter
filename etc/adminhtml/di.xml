@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\PageBuilder\Ui\Component\Listing\Columns\TemplateManagerActions">
+        <plugin name="prepare_data_source_after" type="Rsilva\PagebuilderExporter\Plugin\Adminhtml\TemplateManagerActions"/>
+    </type>
+</config>
