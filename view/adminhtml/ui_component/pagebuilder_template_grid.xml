@@ -9,7 +9,7 @@
     <settings>
         <buttons>
             <button name="import">
-                <url path="*/*/import"/>
+                <url path="pagebuilder_exporter/*/import"/>
                 <class>primary</class>
                 <label translate="true">Import Template</label>
             </button>
