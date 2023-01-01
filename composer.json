@@ -1,0 +1,20 @@
+{
+    "name": "rsilva/pagebuilder-exporter",
+    "description": "Pagebuilder template exporter by https://github.com/SilRodrigo for Magento 2",
+    "require": {
+        "php": ">=7.4",
+        "rsilva/base": ">=1.0.0"
+    },
+    "type": "magento2-module",
+    "license": [
+        "MIT"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Rsilva\\Vitrine\\": ""
+        }
+    }
+}
