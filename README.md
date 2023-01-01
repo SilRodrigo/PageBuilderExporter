@@ -1,9 +1,9 @@
-# Vitrine Module for Magento 2
+# PageBuilderExporter Module for Magento 2
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/rsilva/vitrine.svg?style=flat-square)](https://packagist.org/packages/opengento/module-document)
+[![Latest Stable Version](https://img.shields.io/packagist/v/rsilva/pagebuilder-exporter.svg?style=flat-square)](https://packagist.org/packages/opengento/module-document)
 [![License: MIT](https://img.shields.io/github/license/opengento/magento2-document.svg?style=flat-square)](./LICENSE) 
-[![Packagist](https://img.shields.io/packagist/dt/rsilva/vitrine.svg?style=flat-square)](https://packagist.org/packages/rsilva/vitrine/stats)
-[![Packagist](https://img.shields.io/packagist/dm/rsilva/vitrine.svg?style=flat-square)](https://packagist.org/packages/rsilva/vitrine/stats)
+[![Packagist](https://img.shields.io/packagist/dt/rsilva/pagebuilder-exporter.svg?style=flat-square)](https://packagist.org/packages/rsilva/pagebuilder-exporter/stats)
+[![Packagist](https://img.shields.io/packagist/dm/rsilva/pagebuilder-exporter.svg?style=flat-square)](https://packagist.org/packages/rsilva/pagebuilder-exporter/stats)
 
 This module allows you to import and export pagebuilder templates.
 
