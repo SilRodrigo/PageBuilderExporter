@@ -51,7 +51,7 @@ Import it back to your store with a few clicks.
  1. Access your Magento admin panel.
  2. On left menu access Content -> Templates
  3. On your PageBuilder templates list
- 4. Click select on action column on template you'd like and select the option ***Export***
+ 4. Choose a template you'd like, on action column select ***Export*** option
  5. Your download will start immediately
  
 ### Importing
