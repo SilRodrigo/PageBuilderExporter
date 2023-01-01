@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
+<!--
+/**
+  * @author Rodrigo Silva
+ * @copyright Copyright (c) 2023 Rodrigo Silva (https://github.com/SilRodrigo)
+ * @package Rsilva_PageBuildeExporter
+ */
+-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Rsilva_PagebuilderExporter" setup_version="1.0.0">
+    <module name="Rsilva_PageBuilderExporter" setup_version="1.0.0">
     </module>
 </config>

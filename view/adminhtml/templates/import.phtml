@@ -1,0 +1,29 @@
+<?php
+/**
+ * @author Rodrigo Silva
+ * @copyright Copyright (c) 2023 Rodrigo Silva (https://github.com/SilRodrigo)
+ * @package Rsilva_PabeBuilderExporter
+ */
+ /** @var Rsilva\PageBuilderExporter\Block\Form\Import $block */
+?>
+
+<form id="import_template_json_form" action="<?= $escaper->escapeUrl($block->getFormActionUrl()) ?>" method="post" enctype="multipart/form-data">
+    <input name="form_key" type="hidden" value="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>" />
+    <fieldset class="admin__fieldset">
+        <div class="admin__field _required">
+            <label class="admin__field-label" for="template_json_file">
+                <span><?= __('Template json file') ?></span>
+            </label>
+            <div class="admin__field-control">
+                <input type="file" accept=".json" id="template_json_file" class="required-entry admin__control-text" type="text" name="template_json_file">
+            </div>
+        </div>
+    </fieldset>
+</form>
+<script type="text/x-magento-init">
+    {
+        "#import_template_json_form": {
+            "Rsilva_PageBuilderExporter/js/init-form": {}
+        }
+    }
+</script>

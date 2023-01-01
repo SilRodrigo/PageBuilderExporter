@@ -1,14 +1,18 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+  * @author Rodrigo Silva
+ * @copyright Copyright (c) 2023 Rodrigo Silva (https://github.com/SilRodrigo)
+ * @package Rsilva_PageBuildeExporter
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="admin">
+        <route id="pagebuilder" frontName="pagebuilder">
+            <module name="Rsilva_PageBuilderExporter" before="Magento_Backend" />
+        </route>
         <route id="pagebuilder_exporter" frontName="pagebuilder_exporter">
-            <module name="Rsilva_PagebuilderExporter" before="Magento_Backend" />
+            <module name="Rsilva_PageBuilderExporter" before="Magento_Backend" />
         </route>
     </router>
 </config>

@@ -1,19 +1,21 @@
 <?php
 
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * @author Rodrigo Silva
+ * @copyright Copyright (c) 2023 Rodrigo Silva (https://github.com/SilRodrigo)
+ * @package Rsilva_PabeBuilderExporter
  */
 
 declare(strict_types=1);
 
-namespace Rsilva\PagebuilderExporter\Controller\Adminhtml\Template;
+namespace Rsilva\PageBuilderExporter\Controller\Adminhtml\Template;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\ImportExport\Controller\Adminhtml\Export as ExportController;
 use Magento\PageBuilder\Model\TemplateRepository;
+use Magento\PageBuilder\Api\Data\TemplateInterface;
 use Magento\PageBuilder\Model\Template;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
@@ -30,8 +32,9 @@ class Export extends ExportController implements HttpGetActionInterface
     /**
      * Url to this controller
      */
-    const URL = 'pagebuilder_exporter/template/export/';
-    const CONTENT_TYPE = 'application/json';
+    public const URL = 'pagebuilder_exporter/template/export/';
+    public const CONTENT_TYPE = 'application/json';
+    public const TEMPLATE_NOT_EXIST = 'Template does not exist!';
 
     /**
      * @var FileFactory
@@ -49,11 +52,6 @@ class Export extends ExportController implements HttpGetActionInterface
     private $_date;
 
     /**
-     * @var UploaderFactory
-     */
-    private $_uploaderFactory;
-
-    /**
      * @var WriteInterface
      */
     private $_varDirectory;
@@ -64,7 +62,6 @@ class Export extends ExportController implements HttpGetActionInterface
      * @param FileFactory $fileFactory
      * @param TemplateRepository $templateRepository
      * @param TimezoneInterface $date
-     * @param UploaderFactory $uploaderFactory
      * @param Filesystem $filesystem
      */
     public function __construct(
@@ -72,14 +69,12 @@ class Export extends ExportController implements HttpGetActionInterface
         FileFactory $fileFactory,
         TemplateRepository $templateRepository,
         TimezoneInterface $date,
-        UploaderFactory $uploaderFactory,
         Filesystem $filesystem
     ) {
         parent::__construct($context);
         $this->_fileFactory = $fileFactory;
         $this->_templateRepository = $templateRepository;
         $this->_date =  $date;
-        $this->_uploaderFactory = $uploaderFactory;
         $this->_varDirectory = $filesystem->getDirectoryWrite(DirectoryList::VAR_EXPORT);
     }
 
@@ -99,7 +94,7 @@ class Export extends ExportController implements HttpGetActionInterface
     {
         $this->_varDirectory->writeFile($fileName, $content);
         return $this->_fileFactory->create(
-            $this->generateFileName($fileName),
+            $fileName,
             [
                 'type'  => "filename",
                 'value' => $fileName,
@@ -119,14 +114,14 @@ class Export extends ExportController implements HttpGetActionInterface
             /** @var Template $template */
             $template = $this->_templateRepository->get($this->getRequest()->getParam('template_id'));
             if (!$template->getId()) {
-                throw new NoSuchEntityException(__('Template does not exist!'));
+                throw new NoSuchEntityException(__(Export::TEMPLATE_NOT_EXIST));
             }
-            $fileName = $this->generateFileName($template->getName());
+            $fileName = $this->generateFileName('pagebuilder-' . $template->getName());
             $content = json_encode(
                 [
-                    'template_name' => $template->getName(),
-                    'created_for' => $template->getCreatedFor(),
-                    'template' => $template->getTemplate(),
+                    TemplateInterface::KEY_NAME => $template->getName(),
+                    TemplateInterface::KEY_CREATED_FOR => $template->getCreatedFor(),
+                    TemplateInterface::KEY_TEMPLATE => $template->getTemplate(),
                 ]
             );
             return $this->generateJsonFile($fileName, $content);

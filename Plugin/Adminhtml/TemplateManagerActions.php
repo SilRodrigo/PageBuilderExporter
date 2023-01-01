@@ -1,13 +1,19 @@
 <?php
 
+/**
+ * @author Rodrigo Silva
+ * @copyright Copyright (c) 2023 Rodrigo Silva (https://github.com/SilRodrigo)
+ * @package Rsilva_PabeBuilderExporter
+ */
+
 declare(strict_types=1);
 
-namespace Rsilva\PagebuilderExporter\Plugin\Adminhtml;
+namespace Rsilva\PageBuilderExporter\Plugin\Adminhtml;
 
 use Magento\Framework\UrlInterface;
 use Magento\Framework\AuthorizationInterface;
 use Magento\PageBuilder\Ui\Component\Listing\Columns\TemplateManagerActions as Actions;
-use Rsilva\PagebuilderExporter\Controller\Adminhtml\Template\Export;
+use Rsilva\PageBuilderExporter\Controller\Adminhtml\Template\Export;
 
 class TemplateManagerActions
 {
