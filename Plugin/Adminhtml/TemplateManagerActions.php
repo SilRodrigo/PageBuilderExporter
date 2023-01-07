@@ -13,7 +13,7 @@ namespace Rsilva\PageBuilderExporter\Plugin\Adminhtml;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\AuthorizationInterface;
 use Magento\PageBuilder\Ui\Component\Listing\Columns\TemplateManagerActions as Actions;
-use Rsilva\PageBuilderExporter\Controller\Adminhtml\Template\Export;
+use Rsilva\PageBuilderExporter\Model\Template\Export;
 
 class TemplateManagerActions
 {

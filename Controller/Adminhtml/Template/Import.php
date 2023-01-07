@@ -10,15 +10,11 @@ declare(strict_types=1);
 
 namespace Rsilva\PageBuilderExporter\Controller\Adminhtml\Template;
 
-use Rsilva\PagebuilderExporter\Api\ImportExportConfigInterface as ConfigInterface;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\ActionInterface;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
-use Magento\PageBuilder\Model\TemplateRepository;
-use Magento\PageBuilder\Api\Data\TemplateInterface;
-use Magento\PageBuilder\Model\TemplateFactory;
-use Magento\Framework\Filesystem\Driver\File;
+use Rsilva\PageBuilderExporter\Model\Template\Import as TemplateImport;
 
 /**
  * Controller that import pagebuilder template.
@@ -34,63 +30,39 @@ class Import extends Action implements ActionInterface
     private $_resultPageFactory;
 
     /**
-     * @var TemplateFactory
+     * @var TemplateImport
      */
-    private $_templateFactory;
-
-    /**
-     * @var TemplateRepository
-     */
-    private $_templateRepository;
-
-    /**
-     * @var File
-     */
-    private $_driverFile;
+    private $_templateImport;
 
     /**
      * @param Context $context
      * @param PageFactory $resultPageFactory
-     * @param TemplateFactory $templateFactory
-     * @param TemplateRepository $templateRepository
-     * @param File $driverFile
+     * @param TemplateImport $templateImport
      */
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory,
-        TemplateFactory $templateFactory,
-        TemplateRepository $templateRepository,
-        File $driverFile
+        TemplateImport $templateImport
     ) {
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
-        $this->_templateFactory = $templateFactory;
-        $this->_templateRepository = $templateRepository;
-        $this->_driverFile = $driverFile;
+        $this->_templateImport = $templateImport;
     }
 
     public function execute()
     {
-        $json_file = $this->getRequest()->getFiles();
-        if (!empty($json_file['template_json_file'])) {
-            $json_file = $json_file['template_json_file'];
-            $file_name = $json_file['name'];
+        $jsonFile = $this->getRequest()->getFiles();
+        if (!empty($jsonFile['template_json_file'])) {
             try {
-                $content =  $this->_driverFile->fileGetContents($json_file['tmp_name']);
-                $import_template = json_decode($content, true);
-                /** @var TemplateInterface $template */
-                $template = $this->_templateFactory->create();
-                $template->setName($import_template[TemplateInterface::KEY_NAME]);
-                $template->setCreatedFor($import_template[TemplateInterface::KEY_CREATED_FOR]);
-                $template->setTemplate($import_template[TemplateInterface::KEY_TEMPLATE]);
-                $template->setPreviewImage('blank.png');
-                $this->_templateRepository->save($template);
-                $this->messageManager->addSuccessMessage(__(Import::IMPORT_SUCCESS_MESSAGE, $file_name));
+                $jsonFile = $jsonFile['template_json_file'];
+                $fileName = $jsonFile['name'];
+                $this->_templateImport->execute($jsonFile);
+                $this->messageManager->addSuccessMessage(__(Import::IMPORT_SUCCESS_MESSAGE, $fileName));
                 $result_redirect = $this->resultRedirectFactory->create();
                 $result_redirect->setPath('pagebuilder/template/index');
                 return $result_redirect;
             } catch (\Throwable $th) {
-                $this->messageManager->addErrorMessage(Import::IMPORT_ERROR, $file_name);
+                $this->messageManager->addErrorMessage(Import::IMPORT_ERROR, $fileName);
                 $this->messageManager->addErrorMessage($th->getMessage());
             }
         }
