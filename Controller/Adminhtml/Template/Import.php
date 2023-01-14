@@ -21,7 +21,7 @@ use Rsilva\PageBuilderExporter\Model\Template\Import as TemplateImport;
  */
 class Import extends Action implements ActionInterface
 {
-    public const IMPORT_SUCCESS_MESSAGE = '"%1" template file was imported with success!';
+    public const IMPORT_SUCCESS_MESSAGE = '%1 template file was imported with success!';
     public const IMPORT_ERROR = 'There was an error importing %1, please try again.';
 
     /**
